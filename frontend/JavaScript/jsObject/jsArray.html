@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsArray</title>
+</head>
+<body>
+    <script>
+        // 定义数组
+        var arr = new Array(1,2,3,4);
+        // 访问数组元素
+        console.log(arr[0]); // 1
+        console.log(arr.length); // 4
+
+        // 长度可变 类型可变
+        var arr = [1,2,3,4];
+
+        arr[10] = 10;
+        console.log(arr[10]);
+        console.log(arr[9]);
+
+        arr[8] = "Hello";
+        arr[9] = true;
+        console.log(arr);
+        
+
+
+
+        
+        // 属性与方法
+        var arr = [1,2,3,4];
+        arr[12] = 10;
+        for (var i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+        }
+
+        console.log("======================================");
+        
+
+        // forEach 与for不同是 只遍历有值的元素
+        // 包装function函数 每遍历一次执行一次 
+        arr.forEach(function(item, index){
+            console.log("索引：" + index + " 值：" + item);
+        });
+
+        arr.forEach((item, index) => {
+            console.log("索引：" + index + " 值：" + item);
+        });
+
+
+        console.log("======================================");
+
+
+        // 常用方法 push pop shift unshift splice slice
+        var arr = [1,2,3,4];
+        arr.push(5,6,7); // 在末尾添加元素
+        console.log(arr);
+
+        arr.pop(); // 删除末尾元素
+        console.log(arr);
+
+        arr.unshift(-1,0); // 在开头添加元素
+        console.log(arr);
+
+        arr.shift(); // 删除开头元素
+        console.log(arr);
+
+        arr.splice(2, 3); // 从索引2开始删除3个元素
+        console.log(arr);
+    </script>
+</body>
+</html>

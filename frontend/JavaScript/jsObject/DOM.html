@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JS-对象-DOM</title>
+  <style>
+    body { font-family: "Microsoft YaHei", Arial, sans-serif; padding: 12px; }
+    .cls { margin: 6px 0; padding: 4px 8px; background:#f6f6f6; border:1px solid #ddd; }
+    .result { margin-top: 12px; color:#333; }
+  </style>
+</head>
+<body>
+  <img id="h1" src="../../img/屏幕截图 2025-11-11 182227.png" alt="开/关图标"> <br><br>
+
+  <div class="cls">传智教育</div>
+  <div class="cls">黑马程序员</div>
+  <br>
+
+  <input type="checkbox" name="hobby" value="movie"> 电影
+  <input type="checkbox" name="hobby" value="travel"> 旅游
+  <input type="checkbox" name="hobby" value="game"> 游戏
+
+  <div class="result" id="output"></div>
+
+  <script>
+    // 1. 获取Element元素
+    // 1.1 获取元素 - 根据 ID 获取
+    var img = document.getElementById('h1');
+    alert(img);
+
+
+    // 1.2 获取元素 - 根据标签名获取
+    var divs = document.getElementsByTagName('div');
+
+    // 遍历并输出每个 div 的文本
+    var divs = document.getElementsByTagName('div');
+    for(let i = 0; i < divs.length; i++){
+      alert('div[' + i + '] = ' + divs[i]);
+    }
+
+
+    // 1.3 获取元素 - 根据 name 属性获取（常用于表单单选/多选）
+    
+    var ins = document.getElementsByName('hobby');
+    for(let i = 0; i < ins.length; i++){
+      alert('input[' + i + '] = ' + ins[i]);
+    }
+
+    // 1.4 获取元素 - 根据 class 属性获取（注意：返回的是 HTMLCollection，类名相同时可用）
+    var clsList = document.getElementsByClassName('cls');
+    for(let i = 0; i < clsList.length; i++){
+      alert('cls[' + i + '] = ' + clsList[i]);
+    }
+
+
+    //2.查询参考手册 属性 方法等
+    var divs = document.getElementsByClassName('cls');
+    var div1 = divs[0];
+    div1.innerHTML = '修改后的shit内容';
+    alert('div1 的新内容：' + div1.innerHTML);
+    
+
+
+
+    //操作
+    //1. 修改图片的 src 属性
+    var img = document.getElementById('h1');
+    img.src = "../../img/屏幕截图 2025-11-13 144800.png";
+
+    //2.
+  // getElementById 返回单个元素（或 null）；这里我们需要一个元素集合，改为 getElementsByTagName
+  var divs = document.getElementsByTagName('div');
+    for(let i = 0; i < divs.length; i++) {
+        const div = divs[i];
+        div.innerHTML += '<font color="red">really good!</font>';
+    }
+
+    //3. 修改所有复选框的选中状态
+    var ins = document.getElementsByName('hobby');
+    for(let i = 0; i < ins.length; i++) {
+      const check = ins[i];
+      check.checked = true;
+    }
+  </script>
+</body>
+</html>

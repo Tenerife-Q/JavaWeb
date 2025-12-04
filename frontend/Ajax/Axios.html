@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios + Vue 简单案例</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 32px auto;
+            max-width: 900px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .actions {
+            margin-bottom: 12px;
+        }
+
+        button {
+            margin-right: 12px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            background: #409eff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:last-of-type {
+            background: #67c23a;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 4px;
+            min-height: 120px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        img {
+            width: 70px;
+            height: 50px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Axios 异步请求 + 表格渲染</h1>
+        <p>按照示例图的逻辑：使用 axios 发送 GET/POST 请求，同时把员工列表渲染成表格。</p>
+
+        <div class="actions">
+            <button @click="fetchEmps">GET 员工列表</button>
+            <button @click="deleteEmp">POST 删除员工</button>
+        </div>
+
+        <pre>{{ log }}</pre>
+
+        <table border="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>图像</th>
+                <th>性别</th>
+                <th>职位</th>
+                <th>入职日期</th>
+                <th>最近操作时间</th>
+            </tr>
+            <tr v-for="(emp, index) in emps" :key="emp.id" align="center">
+                <td>{{ index + 1 }}</td>
+                <td>{{ emp.name }}</td>
+                <td>
+                    <img :src="emp.image" :alt="emp.name">
+                </td>
+                <td>
+                    <span v-if="emp.gender == 1 || emp.gender === '男'">男</span>
+                    <span v-else>女</span>
+                </td>
+                <td>{{ emp.job || '—' }}</td>
+                <td>{{ emp.entrydate || '—' }}</td>
+                <td>{{ emp.updatetime || '—' }}</td>
+            </tr>
+            <tr v-if="!emps.length">
+                <td colspan="7">暂无数据，请点击“GET 员工列表”。</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const localImages = [
+            '../img/屏幕截图 2025-11-06 225616.png',
+            '../img/屏幕截图 2025-11-10 232802.png',
+            '../img/屏幕截图 2025-11-11 182227.png',
+            '../img/屏幕截图 2025-11-13 144800.png',
+            '../img/屏幕截图 2025-11-14 150800.png',
+            '../img/屏幕截图 2025-11-15 154628.png'
+        ];
+
+        new Vue({
+            el: '#app',
+            data: {
+                emps: [],
+                log: '等待请求...'
+            },
+            mounted() {
+                this.fetchEmps();
+            },
+            methods: {
+                fetchEmps() {
+                    this.log = '正在加载员工数据...';
+                    axios.get('http://yapi.smart-xwork.cn/mock/169327/emp/list')
+                        .then(result => {
+                            console.log(result.data);
+                            const list = normalizeEmpList(result.data);
+                            if (!list.length) {
+                                this.log = '接口返回为空，已展示本地示例数据。';
+                                this.emps = this.fallbackEmps();
+                                return;
+                            }
+                            this.emps = list.map((emp, index) => ({
+                                ...emp,
+                                image: localImages[index % localImages.length]
+                            }));
+                            this.log = formatLog('GET 成功返回：', result.data);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            this.log = `GET 请求失败：${err.message}，已展示本地示例数据。`;
+                            this.emps = this.fallbackEmps();
+                        });
+                },
+                deleteEmp() {
+                    axios({
+                        method: 'post',
+                        url: 'http://yapi.smart-xwork.cn/mock/169327/emp/deleteById',
+                        data: 'id=1'
+                    })
+                        .then(result => {
+                            console.log(result.data);
+                            this.log = formatLog('POST 成功返回：', result.data);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            this.log = `POST 请求失败：${err.message}`;
+                        });
+                },
+                fallbackEmps() {
+                    return [
+                        { id: 1, name: '胡歌', gender: '男', job: '班主任', entrydate: '2009-08-09', updatetime: '2015-08-09 12:00:00', image: localImages[0] },
+                        { id: 2, name: '刘诗诗', gender: '女', job: '语文老师', entrydate: '2010-06-03', updatetime: '2016-03-08 08:00:00', image: localImages[1] },
+                        { id: 3, name: '彭于晏', gender: '男', job: '体育老师', entrydate: '2012-09-01', updatetime: '2018-01-20 09:30:00', image: localImages[2] }
+                    ];
+                }
+            }
+        });
+
+        function formatLog(message, data) {
+            return `${message}\n\n${JSON.stringify(data, null, 2)}`;
+        }
+
+        function normalizeEmpList(payload) {
+            if (!payload) return [];
+            if (Array.isArray(payload)) return payload;
+            if (Array.isArray(payload.data)) return payload.data;
+            if (Array.isArray(payload.list)) return payload.list;
+            return [];
+        }
+    </script>
+</body>
+</html>

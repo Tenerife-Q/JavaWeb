@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Basic</title>
+</head>
+<body>
+    <!-- 内连引入JS脚本 -->
+    <script>
+        // alert("Hello, World!");
+
+        window.alert("警告框");
+
+        document.write("这是通过JS写入html页面的内容");
+
+        console.log("这是输出到控制台的信息");
+
+
+
+
+
+
+        // var作用域比较大，全局变量 可以重复定义
+        {
+            var a = 10;
+            a = "Hello";
+        }
+        alert(a);
+
+        //let  块级作用域 局部变量 不能重复定义
+        {
+            let x = 18;
+            // x = 2;
+            alert(x);
+        }
+        // alert(x); 报错 x未定义
+
+
+        //const 常量 不能修改 只能大写字母命名
+        {
+            const PI = 3.14;
+            // PI = 3.15; 报错 不能修改常量
+            alert(PI);
+        }
+        // alert(PI); 报错 PI未定义
+
+
+
+
+
+
+        // 原始数据类型 typedef 获取数据类型
+        alert(typeof 3)
+        alert(typeof "Hello")
+        alert(typeof true)
+        alert(typeof undefined)
+        alert(typeof null) // object 对象类型
+        var a = 5;
+        alert(typeof a)
+
+
+
+
+
+
+        // 运算符
+        var age = 20;
+        var _age = "20";
+        var $age = 20;
+
+        alert(age == _age); // true  值比较 == 可以进行类型转换
+        alert(age === _age); // false  值和类型都比较
+        alert(age === $age); // true
+
+
+
+
+
+        
+
+        // 类型转化
+        //Stirng -> number
+        alert(parseInt("12"));
+        alert(parseInt("12D69")); // 12 遇到非数字停止转换
+        alert(parseInt("D69")); // NaN 不是数字无法转换
+
+        //naumber -> boolean
+        if(0){
+            alert("0 -> false");
+        } 
+        if(NaN){
+            alert("NaN -> false");
+        }
+        if(-1){
+            alert("除了0和NaN -> true");
+        }
+
+        //false都不会弹出 只有true会弹出警告框 也就是上下5种类型
+
+        if(""){
+            alert("空字符串 -> false");
+        }
+
+        if(null){
+            alert("null -> false");
+        }
+
+        if(undefined){
+            alert("undefined -> false");
+        }
+    </script>
+</body>
+</html>

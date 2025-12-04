@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 表格渲染示例</title>
+  <style>
+    body { font-family: "Microsoft YaHei", Arial, sans-serif; padding: 24px; background:#f9f9f9; }
+    h2 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; background:#fff; }
+    th, td { border: 1px solid #dcdcdc; padding: 8px 10px; text-align: center; }
+    th { background: #f0f0f0; }
+    .grade-good { color:#2e7d32; font-weight:600; }
+    .grade-pass { color:#f57c00; }
+    .grade-fail { color:#c62828; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>学员成绩表</h2>
+    <p>性别：1 = 男，2 = 女；成绩 ≥ 85 为“优秀”，≥ 60 为“及格”，其余“不及格”。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+          <th>成绩</th>
+          <th>等级</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(user, index) in users" :key="user.name">
+          <td>{{ index + 1 }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.age }}</td>
+          <td>{{ user.gender === 1 ? '男' : '女' }}</td>
+          <td>{{ user.score }}</td>
+          <td :class="gradeClass(user.score)">{{ gradeLabel(user.score) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        users: [
+          { name: 'Tom', age: 20, gender: 1, score: 78 },
+          { name: 'Rose', age: 18, gender: 2, score: 86 },
+          { name: 'Jerry', age: 26, gender: 1, score: 90 },
+          { name: 'Tony', age: 30, gender: 1, score: 52 }
+        ]
+      },
+      methods: {
+        gradeLabel(score){
+          if(score >= 85) return '优秀';
+          if(score >= 60) return '及格';
+          return '不及格';
+        },
+        gradeClass(score){
+          if(score >= 85) return 'grade-good';
+          if(score >= 60) return 'grade-pass';
+          return 'grade-fail';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

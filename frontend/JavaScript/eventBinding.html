@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBinding</title>
+</head>
+<body>
+    <input type="button" id="btn1" value="EventBinding1" onclick = "on()">
+    <input type="button" id="btn2" value="EventBinding2">
+
+    <script>
+        // 事件绑定两种方法
+        function on(){
+            alert("btn1 Pressed");
+        }
+
+        document.getElementById("btn2").onclick = function(){
+            alert("btn2 Pressed");
+        }
+
+    </script>
+</body>
+</html>

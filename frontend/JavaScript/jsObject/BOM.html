@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+</head>
+<body>
+    <script>
+        window.alert("Hello BOM");
+        alert("Hello BOM");
+
+
+        // 确认框
+        var flag = confirm("Are you sure to delete?");
+        alert(flag);
+
+
+        // setInterval周期性执行函数
+        var i = 0;
+        setInterval(function(){
+            i++;
+            console.log("定时器每3秒执行"+ i +"次");
+        }, 3000);
+
+        // setTimeout延迟执行函数一次
+        setTimeout(function(){
+            alert("延迟3秒执行一次");
+            console.log("延迟3秒执行一次");
+        }, 3000);
+
+
+
+
+        // location
+        alert(location.href); // 获取当前页面URL
+        location.href = "https://www.example.com"; // 跳转到指定URL
+    </script>
+</body>
+</html>

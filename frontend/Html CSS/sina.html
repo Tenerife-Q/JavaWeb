@@ -1,0 +1,137 @@
+<!-- 文档类型声明html -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- 字符集声明utf-8 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sina</title>
+
+
+    <!-- 还可以引入外部css文件 -->
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <style>
+        /* h1 { color : red; } */
+
+        h1 {
+            color: rgb(149, 56, 56);
+
+            color: #ff0000;
+        }
+
+        /* 元素选择器 没有语义 组合行内元素*/
+        span {
+            color: blue;
+        }
+
+        /* 类选择器 */
+
+        .cls {
+            color: green;
+        }
+
+        /* ID选择器 */
+        #time {
+            color: purple;
+            font-size: 28px;
+        }
+
+        /* 超链接 */
+        a {
+            color: black;
+            /* 去下划线 */
+            text-decoration: none;
+        }
+
+
+        p {
+            font-size: 20px;
+            /* 行高 */
+            line-height: 40px;
+            color: brown;
+            /* 首行缩进 */
+            text-indent: 2em;
+        }
+
+        #lastauthor {
+            text-align: right;
+            font-size: 18px;
+            color: gray;
+            margin-right: 50px;
+            text-align: right;
+        }
+
+        #center {
+            width: 60%;
+            margin: 0 15% 0 15%;
+            /* 简写 */
+            margin: 0 auto;
+        }
+
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id = 'center'>
+
+        <!-- img 
+     src:  相对路径 相对于html文件目录  或者  绝对路径 网络硬盘路径
+     width:  宽度（px，像素；%，相对于父元素百分比）
+     height: 
+     -->
+
+        <hr>
+
+        <img src='https://www.sina.com.cn/favicon.ico' width='100' height='100'>
+        <a href="https://www.sina.com.cn/" target="_self">sina</a> >comment
+
+        <hr>
+
+        <h1>一级标题</h1>
+
+        <hr>
+        <span class="cls" id="time">2025 06 08</span>
+        <span> <a href='https://updraft.cyfrin.io/career-tracks/smart-contract-security-auditor' target="_blank"> Cyfrin
+                Updraft </a> </span>
+        <hr>
+
+        <!-- 正文 -->
+        <!-- 视频 -->
+        <video src='./video/football3.mp4' controls width='250px'></video>
+
+        <!-- 音频 -->
+        <audio src='./audio/audio.mp3' controls></audio>
+
+        <br>
+        <!-- 换行br 段落p 空格&nbsp-->
+        <p>
+            <b>基督教司机安</b>德罗尼负利率骄傲把家里弄得积分奖励计划
+            反对法国的风格和法国的风格&nbsp;和&nbsp;法国的风格和节食减肥机电设计符合呵呵
+            <strong>烦烦烦烦烦烦烦烦烦</strong>风控数据要调货的婢女就是减肥食谱i哦发货发了数据库但是不代表的基本的背后是啊看
+        </p>
+
+        <img src='./img/屏幕截图 2025-11-06 225616.png' width='600px'>
+
+        <p>
+            励大量农村零年房价
+            忘记我欸的判断覅人家我inn成为哦夫妇与德国出版不能
+        </p>
+
+        <img src = './img/屏幕截图 2025-11-11 182227.png' width='600px'>
+
+        <p id='lastauthor'>
+            —— 作者：sina评论员
+        </p>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象JSON</title>
+</head>
+<body>
+    <script>
+        // 自定义对象
+        var user = {
+            name : "Tom",
+            age1 : 10,
+            gender : "male",
+            // eat : function(){
+            //     alert("eat -");
+            // }
+            eat(){
+                alert("eating...")
+            }
+        }
+
+        alert (user.name);
+        user.eat()
+
+
+
+        // 定义JSON
+        var jsonstr = '{"name" : "shit", "age" : "18", "addr" : ["Beijing", "Shanghai", "London"]}';
+        
+        // JSON 字符串 -> js 对象
+        var obj = JSON.parse(jsonstr);
+        alert(obj.name);
+
+        // js对象 -> json字符串
+        alert(JSON.stringify(obj));
+        alert(JSON.jsonstr);
+
+    </script>
+</body>
+</html>

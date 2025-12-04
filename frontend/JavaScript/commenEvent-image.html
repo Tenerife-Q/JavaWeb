@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>图片路径示例</title>
+  <style>
+    body { font-family: "Microsoft YaHei", Arial, sans-serif; padding: 24px; background:#fafafa; }
+    h2 { margin-top: 0; }
+    .panel { max-width: 420px; margin: 0 auto; padding: 20px; background:#fff; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); text-align: center; }
+    .section { max-width: 420px; margin: 24px auto; padding: 18px; background:#fff; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+    img { width: 260px; border-radius: 12px; box-shadow: 0 0 18px rgba(0,0,0,0.15); display:block; margin: 0 auto 16px; }
+    button { margin: 6px; padding: 6px 18px; border-radius: 20px; border:1px solid #1976d2; background:#e3f2fd; color:#0d47a1; cursor:pointer; }
+    button:active { transform: translateY(1px); }
+    code { background:#f5f5f5; padding: 2px 4px; border-radius: 4px; }
+    input[type="text"] { width: 100%; padding: 8px 10px; font-size: 18px; border-radius: 8px; border:1px solid #bdbdbd; text-align:center; text-transform: uppercase; }
+    .cb-group { display:flex; justify-content: space-around; margin-top: 12px; }
+    .cb-group label { cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h2>只演示如何引用 <code>img/</code> 目录的图片</h2>
+  <p>当前页面位于 <code>JavaScript/</code> 目录，所以图片路径写成 <code>../img/文件名.png</code> 即可。</p>
+
+  <div class="panel">
+    <img id="preview" src="" alt="示例图片">
+    <div>
+      <button id="btnPic1">图片一</button>
+      <button id="btnPic2">图片二</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>输入框聚焦/失焦大小写</h3>
+    <input type="text" id="keyword" value="ITCAST" autocomplete="off">
+    <p style="color:#888;">focus → 小写 / blur → 大写</p>
+  </div>
+
+  <div class="section">
+    <h3>复选框全选 / 反选</h3>
+    <div class="cb-group">
+      <label><input type="checkbox" name="interest" value="movie"> 电影</label>
+      <label><input type="checkbox" name="interest" value="travel"> 旅游</label>
+      <label><input type="checkbox" name="interest" value="game"> 游戏</label>
+    </div>
+    <div style="text-align:center; margin-top:12px;">
+      <button id="selectAll">全选</button>
+      <button id="clearAll">反选</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      setupImageSwitcher();
+      setupInputCaseToggle();
+      setupCheckboxController();
+    })();
+
+    function setupImageSwitcher(){
+      const preview = document.getElementById('preview');
+      const btnPic1 = document.getElementById('btnPic1');
+      const btnPic2 = document.getElementById('btnPic2');
+      const pics = {
+        one: encodeURI('../img/屏幕截图 2025-11-13 144800.png'),
+        two: encodeURI('../img/屏幕截图 2025-11-15 154628.png')
+      };
+
+      function showPicOne(){ preview.src = pics.one; }
+      function showPicTwo(){ preview.src = pics.two; }
+
+      preview.src = pics.one;
+      btnPic1.addEventListener('click', showPicOne);
+      btnPic2.addEventListener('click', showPicTwo);
+    }
+
+    function setupInputCaseToggle(){
+      const keyword = document.getElementById('keyword');
+
+      function handleFocus(){
+        keyword.value = keyword.value.toLowerCase();
+        keyword.style.textTransform = 'lowercase';
+      }
+
+      function handleBlur(){
+        keyword.value = keyword.value.toUpperCase();
+        keyword.style.textTransform = 'uppercase';
+      }
+
+      keyword.addEventListener('focus', handleFocus);
+      keyword.addEventListener('blur', handleBlur);
+    }
+
+    function setupCheckboxController(){
+      const selectAllBtn = document.getElementById('selectAll');
+      const clearAllBtn  = document.getElementById('clearAll');
+      const boxes = document.querySelectorAll('input[name="interest"]');
+
+      function selectAll(){ boxes.forEach(box => box.checked = true); }
+      function clearAll(){ boxes.forEach(box => box.checked = false); }
+
+      selectAllBtn.addEventListener('click', selectAll);
+      clearAllBtn.addEventListener('click', clearAll);
+    }
+  </script>
+</body>
+</html>

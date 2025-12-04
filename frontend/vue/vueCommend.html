@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "app">
+        <!-- 为HTML标签绑定属性值 如href css样式等 -->
+        <a v-bind:href="url">link1</a>
+        <a :href="url">link2</a>
+
+        <!-- 表单元素上创建双向数据绑定 -->
+        <input type="text" v-model="url">
+        <span style="margin-left: 8px; color:#555;">当前链接：{{ url }}</span>
+
+        <input type = "button" v-on:click= "handle" value="click me">
+        <input type="button" @click="handle" value="click me 2">
+
+        <!-- 条件指令示例：根据 isVisible 控制内容显示 -->
+        <p v-if="isVisible">这个段落使用 v-if，当 isVisible 为 true 时显示。</p>
+        <p v-show="isVisible">这个段落使用 v-show，仍会渲染但通过 CSS 隐藏。</p>
+        <button @click="toggleVisible">切换显示/隐藏</button>
+        <label style="display:block;margin-top:8px;">
+            <input type="checkbox" v-model="showTip"> 使用 v-show 显示额外提示
+        </label>
+        <div v-show="showTip" style="padding:6px 10px;background:#fff3cd;border:1px solid #ffeeba;margin-bottom:6px;">
+            这是通过 v-show 控制的提示块（勾选复选框即可显示）。
+        </div>
+
+        <hr>
+        <label>
+            输入年龄：
+            <input type="number" v-model.number="age" min="0" style="width:120px;">
+        </label>
+        <span style="margin-left:10px;">
+            判断结果：
+            <span v-if="age !== '' && age < 18">青年（18 岁以下）</span>
+            <span v-else-if="age >= 18 && age <= 45">中年（19-45 岁）</span>
+            <span v-else-if="age > 45 && age <= 65">老年（46-65 岁）</span>
+            <span v-else>请输入 0-65 之间的数字</span>
+        </span>
+
+        <hr>
+        <h3>v-for 列表遍历示例</h3>
+        <ul>
+            <li v-for="(todo, index) in todos" :key="index">
+                {{ index + 1 }}. {{ todo }}
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            url : "https://www.baidu.com",
+            isVisible: true,
+            age: 25,
+            showTip: false,
+            todos: ['熟悉 v-bind','练习 v-on','掌握 v-if/v-show','尝试 v-for']
+        },
+        computed: {
+            ageLabel(){
+                if(this.age === '' || this.age === null || isNaN(this.age)){
+                    return '请输入数字';
+                }
+                if(this.age < 40){
+                    return '青年';
+                } else if(this.age < 60){
+                    return '中年';
+                }
+                return '老年';
+            }
+        },
+        methods: {
+            handle(){
+                alert("Button clicked!");
+            },
+            toggleVisible(){
+                this.isVisible = !this.isVisible;
+            }
+        }
+    });
+</script>
+
+</html>

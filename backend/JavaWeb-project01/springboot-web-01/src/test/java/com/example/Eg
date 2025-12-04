@@ -1,0 +1,75 @@
+// ✅ 推荐的项目结构注解用法
+
+// 1. 主程序入口
+@SpringBootApplication
+public class SpringbootWeb01Application {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootWeb01Application.class, args);
+    }
+}
+
+// 2. 控制层
+@RestController
+@RequestMapping("/api")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping("/users")
+    public String addUser(@RequestBody User user) {
+        userService.save(user);
+        return "添加成功";
+    }
+}
+
+// 3. 服务层
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+}
+
+// 4. 数据层
+@Repository
+public class UserRepository {
+
+    public List<User> findAll() {
+        // 数据库查询
+    }
+
+    public void save(User user) {
+        // 数据库保存
+    }
+}
+
+// 5. 实体类
+@Data  // Lombok 注解，自动生成 getter/setter/toString
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    private Integer id;
+    private String username;
+    private String name;
+    private Integer age;
+}

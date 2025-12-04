@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsString</title>
+</head>
+<body>
+    <script>
+        var str = "  Hello, World!  ";
+        console.log(str);
+        console.log(str.length);
+
+        // charAt 
+        console.log(str.charAt(4));
+        
+        //查找字符串第一个字母索引
+        console.log(str.indexOf("lo"));
+
+        // 去除前后空格
+        var s = str.trim();
+        console.log(s);
+        
+        // 提取字符串中两个指定位置之间子字符 留头去尾
+        console.log(s.substring(0,5));
+        
+        
+        
+        
+    </script>
+</body>
+</html>

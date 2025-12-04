@@ -1,0 +1,105 @@
+浏览器请求：GET /list
+         ↓
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 第1层：Controller - UserController          ┃
+┃ ════════════════════════════════════════   ┃
+┃ @RestController                            ┃
+┃ public class UserController {              ┃
+┃     private final UserService userService; ┃
+┃     // 已由构造器注入 userServiceImpl      ┃
+┃                                            ┃
+┃     @RequestMapping("/list")               ┃
+┃     public List<User> list() {             ┃
+┃         ✓ 接收请求                        ┃
+┃         ✓ 调用 userService.findAll()      ┃
+┗━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+              │
+              │ userService.findAll()
+              │ 实际调用：userServiceImpl.findAll()
+              ↓
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 第2层：Service - UserServiceImpl            ┃
+┃ ════════════════════════════════════════   ┃
+┃ @Service                                   ┃
+┃ public class UserServiceImpl                ┃
+┃         implements UserService {           ┃
+┃     private UserDao userDao;               ┃
+┃     // 已由 @Autowired 注入 userDaoImpl   ┃
+┃                                            ┃
+┃     @Override                              ┃
+┃     public List<User> findAll() {          ┃
+┃         ✓ 调用 userDao.findAll()          ┃
+┃         ✓ 获取 List<String> lines        ┃
+┃         ✓ 处理业务逻辑                   ┃
+┃         ✓ 转换为 List<User>              ┃
+┗━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+              │
+              │ userDao.findAll()
+              │ 实际调用：userDaoImpl.findAll()
+              ↓
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 第3层：Dao - UserDaoImpl                    ┃
+┃ ════════════════════════════════════════   ┃
+┃ @Repository("userDao")                     ┃
+┃ public class UserDaoImpl                    ┃
+┃         implements UserDao {               ┃
+┃                                            ┃
+┃     @Override                              ┃
+┃     public List<String> findAll() {        ┃
+┃         ✓ 加载 user.txt 文件             ┃
+┃         ✓ 读取所有行                     ┃
+┃         ✓ 返回 List<String>              ┃
+┃         return lines;                      ┃
+┗━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+              │
+              │ 返回原始数据行
+              ▼
+        ["1,daqiao,1234567890,大乔,22,2024-07-15 15:05:45",
+         "2,xiaoqiao,abcdefgh,小乔,21,2024-08-20 10:30:00"]
+              │
+              │ ⬆️ 返回给 Service
+              ↓
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Service 继续处理                           ┃
+┃ ════════════════════════════════════════   ┃
+┃ List<User> userList = lines.stream()       ┃
+┃     .map(line -> {                         ┃
+┃         String[] parts = line.split(",");  ┃
+┃         Integer id = ...                   ┃
+┃         String username = ...              ┃
+┃         // ... 解析                        ┃
+┃         return new User(...);              ┃
+┃     })                                     ┃
+┃     .collect(Collectors.toList());         ┃
+┃ return userList;                           ┃
+┗━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+              │
+              │ 返回解析后的 User 对象列表
+              ▼
+        [User{id:1, username:"daqiao",...},
+         User{id:2, username:"xiaoqiao",...}]
+              │
+              │ ⬆️ 返回给 Controller
+              ↓
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Controller 返回响应                        ┃
+┃ ════════════════════════════════════════   ┃
+┃ @RestController 自动序列化为 JSON         ┃
+┗━━━━━━━━━━━━┬━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+              │
+              ▼
+        HTTP Response (JSON)
+        [
+          {
+            "id": 1,
+            "username": "daqiao",
+            "password": "1234567890",
+            "name": "大乔",
+            "age": 22,
+            "updateTime": "2024-07-15T15:05:45"
+          },
+          ...
+        ]
+              │
+              ▼
+        返回给浏览器

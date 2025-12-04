@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>表单示例</title>
+	<style>
+		body { font-family: Arial, "Microsoft YaHei", sans-serif; padding: 18px; }
+		label { display: inline-block; width: 60px; vertical-align: top; }
+		.field { margin-bottom: 10px; }
+		textarea { resize: vertical; }
+	</style>
+</head>
+<body>
+	<h2>表单示例</h2>
+    <!-- 
+    action： URL表单发送地址     method:get / post 发送方法     enctype: 编码类型
+    input 表单项   select 下拉列表   textarea 文本域 
+    -->
+	<form action="" method="post" enctype="multipart/form-data">
+		<div class="field">
+			<label for="name">姓名:</label>
+			<input type="text" id="name" name="name" value="Tom">
+		</div>
+
+		<div class="field">
+			<label for="password">密码:</label>
+			<input type="password" id="password" name="password" value="">
+		</div>
+
+		<div class="field">
+			<label>性别:</label>
+			<label><input type="radio" name="gender" value="1" checked> 男</label>
+			<label><input type="radio" name="gender" value="2"> 女</label>
+		</div>
+
+		<div class="field">
+			<label>爱好:</label>
+			<label><input type="checkbox" name="hobby" value="java"> java</label>
+			<label><input type="checkbox" name="hobby" value="game"> game</label>
+			<label><input type="checkbox" name="hobby" value="sing"> sing</label>
+		</div>
+
+		<div class="field">
+			<label for="image">图片:</label>
+			<input type="file" id="image" name="image">
+		</div>
+
+		<div class="field">
+			<label for="birthday">生日:</label>
+			<input type="date" id="birthday" name="birthday">
+		</div>
+
+		<div class="field">
+			<label for="time">时间:</label>
+			<input type="time" id="time" name="time">
+		</div>
+
+		<div class="field">
+			<label for="datetime">日期时间:</label>
+			<input type="datetime-local" id="datetime" name="datetime">
+		</div>
+
+		<div class="field">
+			<label for="email">邮箱:</label>
+			<input type="email" id="email" name="email">
+		</div>
+
+		<div class="field">
+			<label for="age">年龄:</label>
+			<input type="number" id="age" name="age" min="0">
+		</div>
+
+		<div class="field">
+			<label for="degree">学历:</label>
+			<select id="degree" name="degree">
+				<option value="">-- 请选择 --</option>
+				<option value="1">大专</option>
+				<option value="2">本科</option>
+				<option value="3">研究生</option>
+				<option value="4">博士</option>
+			</select>
+		</div>
+
+		<div class="field">
+			<label for="description">描述:</label>
+			<textarea id="description" name="description" cols="30" rows="8"></textarea>
+		</div>
+
+		<input type="hidden" name="id" value="1">
+
+		<div class="field">
+			<input type="button" value="按钮">
+			<input type="reset" value="重置">
+			<input type="submit" value="提交">
+		</div>
+	</form>
+</body>
+</html>
+
