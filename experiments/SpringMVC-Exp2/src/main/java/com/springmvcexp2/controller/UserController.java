@@ -33,7 +33,7 @@ public class UserController {
     public String registuser1(@RequestParam("uname") String name,
                               @RequestParam("upwd") String pwd,
                               @RequestParam("uage") Integer age,
-                              Model model) { // [cite: 17]
+                              Model model) {
         User user = new User(name, pwd, age);
         model.addAttribute("user", user);
         return "userinfo"; // 跳转到 userinfo.html
@@ -44,7 +44,7 @@ public class UserController {
      * 映射为 /regist2
      */
     @PostMapping("/regist2")
-    public ModelAndView registuser2(String uname, String upwd, Integer uage) { // [cite: 18]
+    public ModelAndView registuser2(String uname, String upwd, Integer uage) {
         ModelAndView mv = new ModelAndView();
         User user = new User(uname, upwd, uage);
         mv.addObject("user", user);
