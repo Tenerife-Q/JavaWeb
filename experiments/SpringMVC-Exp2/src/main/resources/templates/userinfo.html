@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+</head>
+<body>
+<h2>注册信息如下：</h2>
+<p>用户名: <span th:text="${user.uname}"></span></p>
+<p>密码: <span th:text="${user.upwd}"></span></p>
+<p>年龄: <span th:text="${user.uage}"></span></p>
+</body>
+</html>
