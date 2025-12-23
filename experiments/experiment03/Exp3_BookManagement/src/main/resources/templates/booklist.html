@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>图书列表</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; margin: 20px auto; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center">图书列表 (Session)</h2>
+<table>
+    <thead>
+    <tr>
+        <th>书名</th>
+        <th>ISBN (点击详情)</th>
+        <th>出版社</th>
+        <th>价格</th>
+        <th>封面</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${session.sessionBooks}">
+        <td th:text="${book.bookname}"></td>
+        <td>
+            <a th:href="@{/getbook(isbn=${book.bookisbn})}" th:text="${book.bookisbn}"></a>
+        </td>
+        <td th:text="${book.publisher}"></td>
+        <td th:text="${book.price}"></td>
+        <td>
+            <img th:src="@{'/images/' + ${book.imgurl}}" width="80px">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
