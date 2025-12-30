@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blockchain.experiment.dao.BookDao">
+
+    <select id="getList" resultType="com.blockchain.experiment.entity.Book">
+        SELECT bid, bookname, bookisbn, publisher, price, imgurl
+        FROM book
+        WHERE bookname LIKE concat('%', #{bookname}, '%')
+    </select>
+
+    <insert id="insertBook" parameterType="com.blockchain.experiment.entity.Book"
+            useGeneratedKeys="true" keyProperty="bid">
+        INSERT INTO book (bookname, bookisbn, publisher, price, imgurl)
+        VALUES (#{bookname}, #{bookisbn}, #{publisher}, #{price}, #{imgurl})
+    </insert>
+
+</mapper>
