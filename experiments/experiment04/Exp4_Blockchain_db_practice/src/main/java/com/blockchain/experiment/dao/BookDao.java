@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface BookDao {
     /**
-     * 根据图书名称进行模糊查询 [cite: 30]
+     * 根据图书名称进行模糊查询
      * @param bookname 图书名称关键词
      * @return 图书列表
      */

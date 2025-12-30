@@ -23,7 +23,6 @@ public class BookController {
     /**
      * GetBooks: 模糊查询
      * URL: /book/GetBooks?bookname=xx
-     * [cite: 39]
      */
     @GetMapping("/GetBooks")
     public List<Book> GetBooks(@RequestParam("bookname") String bookname) {
@@ -34,7 +33,6 @@ public class BookController {
      * AddBook: 插入数据
      * URL: /book/AddBook
      * Body: JSON format
-     * [cite: 40]
      */
     @PostMapping("/AddBook")
     public Boolean AddBook(@RequestBody Book book) {
