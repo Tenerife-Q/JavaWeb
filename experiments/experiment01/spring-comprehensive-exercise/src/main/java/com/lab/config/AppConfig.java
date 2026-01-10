@@ -23,3 +23,6 @@ public class AppConfig {
         return new Date();
     }
 }
+
+// @Configuration + @Bean 手动标注
+// @Component 及其派生注解 都是自动被spring容器（Ioc）自动扫描
