@@ -27,7 +27,9 @@ public class LogAspect {
     }
 
     // 考点：返回后通知 + 获取返回值 (returning 属性)
-    @AfterReturning(pointcut = "execution(* com.lab.service.UserService.processUser(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* com.lab.service.UserService.processUser(..))",
+            returning = "result")
+    // 上下返回的都一样 returning = 参数
     public void logResult(Object result) {
         System.out.println("====== [AOP @AfterReturning] User processed. Result ID: " + result);
     }
