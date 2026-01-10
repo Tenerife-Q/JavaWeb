@@ -10,6 +10,7 @@ import com.lab.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.Resource; // 如报错请换 javax.annotation.Resource
+// Spring 6 且用的是 JDK 21，请坚定地使用 jakarta.annotation.Resource
 
 @Service // 标记为业务层组件
 public class UserService {
