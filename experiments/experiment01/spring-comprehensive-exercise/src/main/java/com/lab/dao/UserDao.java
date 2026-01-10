@@ -15,3 +15,8 @@ public class UserDao {
         return "SUCCESS-ID-" + System.currentTimeMillis();
     }
 }
+
+/**
+ * 基本上是 Dao -> Service -> Controller
+ * 互相注入依赖关系 就是将之前的组件逻辑添加到箭头后面调用他的组件中去
+ */
