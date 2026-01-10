@@ -21,7 +21,7 @@ public class PerformanceAspect {
     public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
 
-        // 执行目标方法
+        // 执行目标方法 启动这个过程
         Object result = joinPoint.proceed();
 
         long end = System.currentTimeMillis();
@@ -31,7 +31,9 @@ public class PerformanceAspect {
     }
 
     // 考点：异常通知 + 获取异常信息 (throwing 属性)
-    @AfterThrowing(pointcut = "execution(* com.lab.service.UserService.*(..))", throwing = "ex")
+    @AfterThrowing(pointcut = "execution(* com.lab.service.UserService.*(..))",
+            throwing = "ex")
+    // 和@AfterReturning 一样 都是throwing = 参数
     public void handleException(Exception ex) {
         System.out.println("====== [AOP @AfterThrowing] ALERT! Exception caught: " + ex.getMessage());
     }
