@@ -18,11 +18,14 @@ public class UserController {
     @Autowired // 考点：属性注入 (最简单，但不如构造器注入严谨)
     private UserService userService;
 
+    // import com.lab.service.UserService
+    //调用 userService.processUser(name)
     public void handleRequest(String name) {
         System.out.println(">> [Controller] Request received for: " + name);
         userService.processUser(name);
     }
 
+    //自己的方法
     public void triggerError() {
         userService.riskyAction();
     }
