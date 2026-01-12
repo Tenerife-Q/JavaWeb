@@ -31,6 +31,15 @@ import java.util.List;
 @Controller
 public class UserController {
 
+    /*
+        (1) 访问浏览器输入 http://localhost:8080/toRegister
+            Spring看到这个地址去查通讯录(HandlerMapping)
+            发现在UserController.java中有 @GetMapping("/toRegister")
+            然后执行toRegister()方法 return "register";
+            这里过后浏览器就显示了register.html
+            所以这里return "register" 返回的是register.html
+     */
+
     // 辅助方法：访问 http://localhost:8080/toRegister 进入注册页
     @GetMapping("/toRegister")
     public String toRegister() {
@@ -77,11 +86,37 @@ public class UserController {
      * 实验要求 9: 使用 @ModelAttribute (或直接对象接收)
      * 映射为 /regist (符合实验文档的核心要求)
      */
+    /*
+        (2) 经过前端表单填写 顾客点击了“提交”。数据（比如：uname=张三, uage=20）飞到了服务器。
+                <form action="/regist" method="POST">
+                    用户名: <input type="text" name="uname"><br>
+        (3) Spring再次出场：它看到请求地址是 /regist，且是 POST 请求，
+            于是找到了 UserController 里的这个方法：这里发生了自动装箱的逻辑
+            Spring 发现你的方法参数里有一个 User 对象。它会像变魔术一样自动做以下事情：
+
+            1.它创建了一个新的 User 对象：new User()。
+            2.它看着前端发来的数据：前端有个 uname 是“张三”。
+            3.它看着 User.java：你正好有个属性也叫 uname，还有个 setUname() 方法。
+            4.自动匹配：它调用 user.setUname("张三")。
+
+            注意：如果前端 input 的 name 写成 username，而后端是 uname，名字对不上，这就装不进去了（会是 null）。
+            这就是为什么前后端变量名要一致。
+
+        (4) 现在 registuser3 方法里，user 对象已经装满了数据。
+            model.addAttribute("user", user); // 1. 把做好的菜（user）放到托盘（Model）上
+            return "userinfo";                // 2. 告诉服务员：把这个托盘送到 "userinfo" 号餐桌
+            return "userinfo"：这不是返回数据给用户，而是告诉 Spring 框架去找名为 userinfo.html 的页面。
+
+        (5) Thymeleaf 引擎：它看到 ${user.uname}，就去托盘（Model）里找 user，
+            再调用 getUname()，拿到了“张三”，然后把这个词填进 HTML 里。
+            最终：浏览器收到了生成好的 HTML，你看到了“用户名：张三”
+     */
     @PostMapping("/regist")
     // HTML 表单有 uname, upwd, uage
     // @ModelAttribute：虽然代码里不写这个注解也能跑，但在理论上，它是用于绑定请求参数到模型对象 。
-    public String registuser3(@ModelAttribute User user, Model model) { // [cite: 19]
+    public String registuser3(@ModelAttribute User user, Model model) {
         // SpringMVC 会自动根据 name 属性匹配 User 类的字段
+        // Model:用于在前后端页面之间传递数据
         model.addAttribute("user", user);
         return "userinfo";
     }
