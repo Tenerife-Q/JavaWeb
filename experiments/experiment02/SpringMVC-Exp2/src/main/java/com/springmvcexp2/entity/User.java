@@ -33,3 +33,19 @@ public class User {
     public Integer getUage() { return uage; }
     public void setUage(Integer uage) { this.uage = uage; }
 }
+
+/**
+ * Spring MVC 执行流程原理？
+ *
+ *      结合代码理解：
+ *
+ *  1.你点了提交按钮 -> DispatcherServlet (前端控制器) 收到请求 。
+ *
+ *  2.它找到你的 UserController (@RequestMapping) 。
+ *
+ *  3.你的方法运行，把 user 塞进 Model，返回 "userinfo" 。
+ *
+ *  4.ViewResolver (视图解析器) 把 "userinfo" 变成 userinfo.html 。
+ *
+ *  5.Thymeleaf 把 Model 里的数据填进去，最后返回给浏览器 。
+ */
