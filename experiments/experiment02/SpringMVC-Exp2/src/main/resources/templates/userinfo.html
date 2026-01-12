@@ -11,3 +11,7 @@
 <p>年龄: <span th:text="${user.uage}"></span></p>
 </body>
 </html>
+
+Thymeleaf 引擎：它看到 ${user.uname}，就去托盘（Model）里找 user，
+再调用 getUname()，拿到了“张三”，然后把这个词填进 HTML 里。
+最终：浏览器收到了生成好的 HTML，你看到了“用户名：张三”
