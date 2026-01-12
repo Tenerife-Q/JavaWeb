@@ -6,6 +6,10 @@
 </head>
 <body>
 <h2>用户注册</h2>
+action="/regist" 这就是传送门。<br>
+它告诉浏览器：“一旦用户点击提交按钮，就把这些数据打包，发给地址为 /regist 的那个人”。<br>
+method="POST" 这里意味着发送的方式是投递 如果是索取，那么method="GET"<br>
+name="uname"：这是暗号。前端给这个输入框起了个名子叫 uname。后端必须用同样的名字才能认出它！
 <form action="/regist" method="POST">
   用户名: <input type="text" name="uname"><br>
   密  码: <input type="password" name="upwd"><br>
@@ -15,9 +19,7 @@
 </body>
 </html>
 
+
 接收 JSON (PPT 里的重点，实验扩展)<br>
-
 考点：如果前端发来的是 JSON 格式（不是表单），必须用 @RequestBody。<br>
-
-
 区别（死记）：@RequestParam 处理 key=value (表单/URL)，@RequestBody 处理 JSON 实体 。
