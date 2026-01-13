@@ -15,6 +15,16 @@ public class SpringMvcExp2Application {
 }
 
 /**
+ * 1. 发起请求：用户在 register.html 点击提交，浏览器向服务器发送 /regist 的 POST 请求 。
+ * 2. 前端控制器接收：Spring MVC 的核心组件 DispatcherServlet 拦截该请求 。
+ * 3. 调用控制器：DispatcherServlet 根据路径找到 UserController 中的 registuser3 方法 。
+ * 4. 数据封装与处理：Spring 自动将请求参数封装为 User 对象。
+ *    控制器执行逻辑，调用 model.addAttribute 将 User 对象存入 Model，并返回逻辑视图名 "userinfo" 。
+ * 5. 视图解析：DispatcherServlet 调用 ViewResolver（视图解析器），将 "userinfo" 解析为物理文件 userinfo.html 。
+ * 6. 页面渲染与响应：Thymeleaf 模板引擎从 Model 中取出 User 数据，替换 HTML 中的占位符，生成最终页面并响应给浏览器 。
+ */
+
+/*
  * @SpringBootApplication
  *  实际上是一个组合注解
  *  其中包含 ：
