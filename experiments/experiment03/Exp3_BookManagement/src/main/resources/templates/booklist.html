@@ -22,13 +22,79 @@
     </tr>
     </thead>
     <tbody>
+
+
+
+
+
+    “对于 session.sessionBooks 里的每一个元素，我们都把它叫作 book，然后复制一行 <tr>。”
+        <br>
+        tr：表格行标签。
+        th:each：Thymeleaf 的循环指令，类似 Java 的 for (Book book : sessionBooks)。
+        <br>
+        ${session.sessionBooks}：数据源。
+        session 是 Thymeleaf 内置对象，代表 HttpSession。
+        sessionBooks 是你在 Controller 里用 @SessionAttributes 或 model.addAttribute 存进去的那个 Key。
+        <br>
+        book：临时变量名。你在这一行 <tr> 内部，都要用 book 这个名字来引用当前拿到的那本书。
     <tr th:each="book : ${session.sessionBooks}">
+
+
+
+
+
+
+        “把这个单元格里的文字，替换成 book 对象的 bookname 属性值。”
+        <br>
+        逻辑流向：
+        Thymeleaf 拿到当前循环的 book 对象。
+        识别到 ${book.bookname}。
+        去 Java 的 Book 类里找 getBookname() 方法（注意：属性名是小写，Java 方法是 get + 首字母大写）。
+        拿到 "深入理解Java虚拟机"，填入 <td>...</td> 中间。
         <td th:text="${book.bookname}"></td>
+
+
+
+
+
+
+
+        “做一个超链接，目标地址是 /getbook，并且带上一个叫 isbn 的参数，参数值是这本书的 ISBN 号。”
+
+        语法拆解（死记硬背）：
+        @{...}：链接表达式专用壳。只要是 URL（href, src, action），必须用 @{} 包起来。
+        /getbook：目标路径（Controller 里的 @GetMapping("/getbook")）。
+
+        (isbn=${book.bookisbn})：参数部分。
+        isbn：参数名（对应 Controller 里 @RequestParam("isbn") 的名字）。
+        ${book.bookisbn}：取值。
+
+        最终效果：如果书号是 97871111，生成的 HTML 就是 <a href="/getbook?isbn=97871111">...</a>。
         <td>
             <a th:href="@{/getbook(isbn=${book.bookisbn})}" th:text="${book.bookisbn}"></a>
         </td>
+
+
+
+
+
         <td th:text="${book.publisher}"></td>
         <td th:text="${book.price}"></td>
+
+
+
+
+
+
+        “图片的来源路径 = 固定的文件夹路径 + 这本书的文件名。”
+
+        语法拆解：
+        @{...}：链接表达式壳子。
+        '/images/'：纯文本字符串。用单引号 ' 包起来，表示这就是一段死文字，对应你项目里的 static/images 文件夹。
+        +：字符串拼接符。
+        ${book.imgurl}：变量。比如 "jvm.jpg"。
+
+        最终效果：拼成 <img src="/images/jvm.jpg">。浏览器看到这个路径，就会自动去 static/images 下找图片。
         <td>
             <img th:src="@{'/images/' + ${book.imgurl}}" width="80px">
         </td>
