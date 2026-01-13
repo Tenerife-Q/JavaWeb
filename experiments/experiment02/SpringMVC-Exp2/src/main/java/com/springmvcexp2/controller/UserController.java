@@ -75,10 +75,19 @@ public class UserController {
      */
     @PostMapping("/regist2")
     public ModelAndView registuser2(String uname, String upwd, Integer uage) {
+        // 1. 创建 ModelAndView 对象
         ModelAndView mv = new ModelAndView();
+
+        // 2. 封装业务数据
         User user = new User(uname, upwd, uage);
+
+        // 3. 将数据存入模型 (addObject 等同于 model.addAttribute)
         mv.addObject("user", user);
+
+        // 4. 设置视图名称 (setViewName 等同于 return "userinfo")
         mv.setViewName("userinfo");
+
+        // 5. 返回 ModelAndView 对象
         return mv;
     }
 
@@ -117,7 +126,8 @@ public class UserController {
     public String registuser3(@ModelAttribute User user, Model model) {
         // SpringMVC 会自动根据 name 属性匹配 User 类的字段
         // Model:用于在前后端页面之间传递数据
-        model.addAttribute("user", user);
+        model.addAttribute("user", user);//这里"user"是标签，后面才是真正的打包好的User类型的对象
+        //这里model.addAttribute("user",user)""内部的一定要和前端代码中的匹配，所以HTML里面文件是${user.uname}
         return "userinfo";
     }
 
