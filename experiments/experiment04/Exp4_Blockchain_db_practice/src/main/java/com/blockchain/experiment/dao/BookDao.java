@@ -21,7 +21,7 @@ public interface BookDao {
     List<Book> getList(@Param("bookname") String bookname);
 
     /**
-     * 插入book对象 [cite: 31]
+     * 插入book对象
      * @param book 图书对象
      * @return 受影响行数
      */
