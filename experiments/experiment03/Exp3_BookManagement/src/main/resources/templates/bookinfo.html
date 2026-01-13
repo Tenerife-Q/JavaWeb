@@ -6,6 +6,9 @@
 </head>
 <body style="padding: 20px;">
 <h2>图书详细信息</h2>
+
+
+
 <div th:if="${book != null}">
     <p><strong>书名:</strong> <span th:text="${book.bookname}"></span></p>
     <p><strong>ISBN:</strong> <span th:text="${book.bookisbn}"></span></p>
