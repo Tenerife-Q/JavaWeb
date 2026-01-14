@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.wallet.mapper.TokenMapper">
+
+    <select id="selectAllTokens" resultType="com.github.wallet.entity.Token">
+        SELECT id, symbol, network, balance, update_time
+        FROM t_token
+        ORDER BY balance DESC
+    </select>
+
+    <insert id="insertToken" parameterType="com.github.wallet.entity.Token">
+        INSERT INTO t_token (symbol, network, balance)
+        VALUES (#{symbol}, #{network}, #{balance})
+    </insert>
+
+</mapper>
